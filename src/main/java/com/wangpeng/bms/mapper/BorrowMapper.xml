@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpeng.bms.mapper.BorrowMapper">
+  <resultMap id="BaseResultMap" type="com.wangpeng.bms.model.Borrow">
+    <id column="borrowId" jdbcType="INTEGER" property="borrowid" />
+    <result column="userId" jdbcType="INTEGER" property="userid" />
+    <result column="userName" jdbcType="INTEGER" property="username" />
+    <result column="bookId" jdbcType="INTEGER" property="bookid" />
+    <result column="bookName" jdbcType="INTEGER" property="bookname" />
+    <result column="borrowTime" jdbcType="TIMESTAMP" property="borrowtime" />
+    <result column="returnTime" jdbcType="TIMESTAMP" property="returntime" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    borrowId, userId, bookId, borrowTime, returnTime
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from borrow
+    where borrowId = #{borrowid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from borrow
+    where borrowId = #{borrowid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangpeng.bms.model.Borrow">
+    insert into borrow (borrowId, userId, bookId, 
+      borrowTime, returnTime)
+    values (#{borrowid,jdbcType=INTEGER}, #{userid,jdbcType=INTEGER}, #{bookid,jdbcType=INTEGER}, 
+      #{borrowtime,jdbcType=TIMESTAMP}, #{returntime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangpeng.bms.model.Borrow">
+    insert into borrow
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="borrowid != null">
+        borrowId,
+      </if>
+      <if test="userid != null">
+        userId,
+      </if>
+      <if test="bookid != null">
+        bookId,
+      </if>
+      <if test="borrowtime != null">
+        borrowTime,
+      </if>
+      <if test="returntime != null">
+        returnTime,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="borrowid != null">
+        #{borrowid,jdbcType=INTEGER},
+      </if>
+      <if test="userid != null">
+        #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowtime != null">
+        #{borrowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returntime != null">
+        #{returntime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangpeng.bms.model.Borrow">
+    update borrow
+    <set>
+      <if test="userid != null">
+        userId = #{userid,jdbcType=INTEGER},
+      </if>
+      <if test="bookid != null">
+        bookId = #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="borrowtime != null">
+        borrowTime = #{borrowtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returntime != null">
+        returnTime = #{returntime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where borrowId = #{borrowid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangpeng.bms.model.Borrow">
+    update borrow
+    set userId = #{userid,jdbcType=INTEGER},
+      bookId = #{bookid,jdbcType=INTEGER},
+      borrowTime = #{borrowtime,jdbcType=TIMESTAMP},
+      returnTime = #{returntime,jdbcType=TIMESTAMP}
+    where borrowId = #{borrowid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllByLimit" resultMap="BaseResultMap">
+    select borrowId, userId, bookId, borrowTime, returnTime,
+           (select userName from user where borrow.userId = user.userId) userName,
+           (select bookName from book_info where borrow.bookId = book_info.bookId) bookName
+    from borrow
+    limit #{begin}, #{size}
+  </select>
+  <select id="selectCount" resultType="int">
+    select count(*) from borrow
+  </select>
+  <select id="selectCountBySearch" resultType="int">
+    select count(*)
+    from borrow, user, book_info
+    where borrow.userId = user.userId and borrow.bookId = book_info.bookId
+    <if test="username != null and username != '' ">
+      and userName like concat('%',#{username},'%')
+    </if>
+    <if test="bookname != null and bookname != '' ">
+      and bookName like concat('%',#{bookname},'%')
+    </if>
+    <if test="userid != null and userid != '' ">
+      and borrow.userId = #{userid}
+    </if>
+  </select>
+  <select id="selectBySearch" resultMap="BaseResultMap">
+    select borrowId, borrow.userId, borrow.bookId, borrowTime, returnTime, userName, bookName
+    from borrow, user, book_info
+    where borrow.userId = user.userId and borrow.bookId = book_info.bookId
+    <if test="username != null and username != '' ">
+      and userName like concat('%',#{username},'%')
+    </if>
+    <if test="bookname != null and bookname != '' ">
+      and bookName like concat('%',#{bookname},'%')
+    </if>
+    <if test="userid != null and userid != '' ">
+      and borrow.userId = #{userid}
+    </if>
+    limit #{begin}, #{size}
+  </select>
+  <select id="selectCountByReader" resultType="int">
+    select count(*) from borrow
+    where userId = #{userid}
+  </select>
+  <select id="selectAllByLimitByReader" resultMap="BaseResultMap">
+    select borrowId, userId, bookId, borrowTime, returnTime,
+           (select userName from user where borrow.userId = user.userId) userName,
+           (select bookName from book_info where borrow.bookId = book_info.bookId) bookName
+    from borrow
+    where userId = #{userid}
+    limit #{begin}, #{size}
+  </select>
+</mapper>

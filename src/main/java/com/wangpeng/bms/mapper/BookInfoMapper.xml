@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wangpeng.bms.mapper.BookInfoMapper">
+  <resultMap id="BaseResultMap" type="com.wangpeng.bms.model.BookInfo">
+    <id column="bookId" jdbcType="INTEGER" property="bookid" />
+    <result column="bookName" jdbcType="VARCHAR" property="bookname" />
+    <result column="bookAuthor" jdbcType="VARCHAR" property="bookauthor" />
+    <result column="bookPrice" jdbcType="DECIMAL" property="bookprice" />
+    <result column="bookTypeId" jdbcType="INTEGER" property="booktypeid" />
+    <result column="bookTypeName" jdbcType="INTEGER" property="booktypename" />
+    <result column="bookDesc" jdbcType="VARCHAR" property="bookdesc" />
+    <result column="isBorrowed" jdbcType="TINYINT" property="isborrowed" />
+    <result column="bookImg" jdbcType="TINYINT" property="bookimg" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    bookId, bookName, bookAuthor, bookPrice, bookTypeId, bookDesc, isBorrowed, bookImg
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from book_info
+    where bookId = #{bookid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from book_info
+    where bookId = #{bookid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.wangpeng.bms.model.BookInfo">
+    insert into book_info (bookId, bookName, bookAuthor, 
+      bookPrice, bookTypeId, bookDesc, 
+      isBorrowed, bookImg)
+    values (#{bookid,jdbcType=INTEGER}, #{bookname,jdbcType=VARCHAR}, #{bookauthor,jdbcType=VARCHAR}, 
+      #{bookprice,jdbcType=DECIMAL}, #{booktypeid,jdbcType=INTEGER}, #{bookdesc,jdbcType=VARCHAR}, 
+      #{isborrowed,jdbcType=TINYINT}, #{bookimg,jdbcType=TINYINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.wangpeng.bms.model.BookInfo">
+    insert into book_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="bookid != null">
+        bookId,
+      </if>
+      <if test="bookname != null">
+        bookName,
+      </if>
+      <if test="bookauthor != null">
+        bookAuthor,
+      </if>
+      <if test="bookprice != null">
+        bookPrice,
+      </if>
+      <if test="booktypeid != null">
+        bookTypeId,
+      </if>
+      <if test="bookdesc != null">
+        bookDesc,
+      </if>
+      <if test="isborrowed != null">
+        isBorrowed,
+      </if>
+      <if test="bookimg != null">
+        bookImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="bookid != null">
+        #{bookid,jdbcType=INTEGER},
+      </if>
+      <if test="bookname != null">
+        #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookauthor != null">
+        #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookprice != null">
+        #{bookprice,jdbcType=DECIMAL},
+      </if>
+      <if test="booktypeid != null">
+        #{booktypeid,jdbcType=INTEGER},
+      </if>
+      <if test="bookdesc != null">
+        #{bookdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isborrowed != null">
+        #{isborrowed,jdbcType=TINYINT},
+      </if>
+      <if test="bookimg != null">
+        #{bookimg,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.wangpeng.bms.model.BookInfo">
+    update book_info
+    <set>
+      <if test="bookname != null">
+        bookName = #{bookname,jdbcType=VARCHAR},
+      </if>
+      <if test="bookauthor != null">
+        bookAuthor = #{bookauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bookprice != null">
+        bookPrice = #{bookprice,jdbcType=DECIMAL},
+      </if>
+      <if test="booktypeid != null">
+        bookTypeId = #{booktypeid,jdbcType=INTEGER},
+      </if>
+      <if test="bookdesc != null">
+        bookDesc = #{bookdesc,jdbcType=VARCHAR},
+      </if>
+      <if test="isborrowed != null">
+        isBorrowed = #{isborrowed,jdbcType=TINYINT},
+      </if>
+      <if test="bookimg != null">
+        bookImg = #{bookimg,jdbcType=TINYINT},
+      </if>
+    </set>
+    where bookId = #{bookid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.wangpeng.bms.model.BookInfo">
+    update book_info
+    set bookName = #{bookname,jdbcType=VARCHAR},
+      bookAuthor = #{bookauthor,jdbcType=VARCHAR},
+      bookPrice = #{bookprice,jdbcType=DECIMAL},
+      bookTypeId = #{booktypeid,jdbcType=INTEGER},
+      bookDesc = #{bookdesc,jdbcType=VARCHAR},
+      isBorrowed = #{isborrowed,jdbcType=TINYINT},
+      bookImg = #{bookimg,jdbcType=TINYINT}
+    where bookId = #{bookid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllByLimit" resultMap="BaseResultMap">
+    select bookId, bookName, bookAuthor,bookPrice, bookTypeId, bookDesc,isBorrowed, bookImg,
+           (select bookTypeName from book_type where book_type.bookTypeId = book_info.bookTypeId) as bookTypeName
+    from book_info
+    limit #{begin}, #{size}
+  </select>
+  <select id="selectCount" resultType="int">
+    select count(*) from book_info
+  </select>
+  <select id="selectCountBySearch" resultType="int">
+    select count(*) from book_info
+    <where>
+      <if test="bookname != null and bookname != '' ">
+        and bookName like concat('%',#{bookname},'%')
+      </if>
+      <if test="bookauthor != null and bookauthor != '' ">
+        and bookAuthor like concat('%',#{bookauthor},'%')
+      </if>
+      <if test="booktypeid != null and booktypeid != '' ">
+        and bookTypeId = #{booktypeid}
+      </if>
+    </where>
+  </select>
+  <select id="selectBySearch" resultMap="BaseResultMap">
+    select bookId, bookName, bookAuthor,bookPrice, bookTypeId, bookDesc,isBorrowed, bookImg,
+           (select bookTypeName from book_type where book_type.bookTypeId = book_info.bookTypeId) as bookTypeName
+    from book_info
+    <where>
+      <if test="bookname != null and bookname != '' ">
+        and bookName like concat('%',#{bookname},'%')
+      </if>
+      <if test="bookauthor != null and bookauthor != '' ">
+        and bookAuthor like concat('%',#{bookauthor},'%')
+      </if>
+      <if test="booktypeid != null and booktypeid != '' ">
+        and bookTypeId = #{booktypeid}
+      </if>
+    </where>
+    limit #{begin}, #{size}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select bookId, bookName, bookAuthor,bookPrice, bookTypeId, bookDesc,isBorrowed, bookImg,
+           (select bookTypeName from book_type where book_type.bookTypeId = book_info.bookTypeId) as bookTypeName
+    from book_info
+  </select>
+  <select id="selectCountByType" resultType="int">
+    select count(*) from book_info
+    <where>
+      <if test="booktypeid != null and booktypeid != '' ">
+        and bookTypeId = #{booktypeid}
+      </if>
+    </where>
+  </select>
+  <select id="selectByType" resultMap="BaseResultMap">
+    select bookId, bookName, bookAuthor,bookPrice, bookTypeId, bookDesc,isBorrowed, bookImg,
+    (select bookTypeName from book_type where book_type.bookTypeId = book_info.bookTypeId) as bookTypeName
+    from book_info
+    <where>
+      <if test="booktypeid != null and booktypeid != '' ">
+        and bookTypeId = #{booktypeid}
+      </if>
+    </where>
+    limit #{begin}, #{size}
+  </select>
+</mapper>
+
