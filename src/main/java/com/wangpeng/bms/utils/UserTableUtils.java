@@ -5,12 +5,12 @@ import com.wangpeng.bms.model.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserTableProcessor {
+public class UserTableUtils {
     // 私有化构造器
-    private UserTableProcessor() {
+    private UserTableUtils() {
 
     }
-    // 单例对象
+    // 静态对象
     private static Map<String, User> table = new HashMap<>();
 
     // 设置用户
