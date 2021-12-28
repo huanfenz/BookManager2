@@ -68,13 +68,15 @@ public class UserController {
 
     // 修改密码
     @RequestMapping(value = {"/alterPassword", "reader/alterPassword"})
-    public Integer alterPassword(String oldPassword, String newPassword,HttpServletRequest req){
-        //获取当前账号信息
-        User userObj =  (User) req.getSession().getAttribute("userObj");
+    public Integer alterPassword(Integer userid, String username, Byte isadmin, String oldPassword, String newPassword){
         //检查旧密码是否正确
-        User userTmp = userObj;
-        userTmp.setUserpassword(oldPassword);
-        User user = userService.login(userTmp);
+        User userObj = new User();
+        userObj.setUserid(userid);
+        userObj.setUsername(username);
+        userObj.setUserpassword(oldPassword);
+        userObj.setIsadmin(isadmin);
+
+        User user = userService.login(userObj);
         if(user == null) {  //旧密码不正确
             return 0;
         } else {    //旧密码正确，设置新密码

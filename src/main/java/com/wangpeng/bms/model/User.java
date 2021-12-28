@@ -7,10 +7,6 @@ public class User {
 
     private String userpassword;
 
-    private String password;
-
-    private String authority;
-
     private Byte isadmin;
 
     public Integer getUserid() {
@@ -35,22 +31,6 @@ public class User {
 
     public void setUserpassword(String userpassword) {
         this.userpassword = userpassword;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getAuthority() {
-        return authority;
-    }
-
-    public void setAuthority(String authority) {
-        this.authority = authority;
     }
 
     public Byte getIsadmin() {
