@@ -12,9 +12,7 @@
 
 项目整体难度简单，部署简单，界面友好，代码结构清晰，相比上一个项目，虽然规模缩小了，但是很多地方有了改善。适合初学者学习和练习。
 
-**注意**：这个仓库只有接口，对应的前端程序如下
-
-https://github.com/huanfenz/BookManagerVue
+对应的前端程序如下：https://github.com/huanfenz/BookManagerVue
 
 ## 环境介绍
 
@@ -35,11 +33,6 @@ https://github.com/huanfenz/BookManagerVue
 2、打开项目，打开`src/main/resources/application.properties`，修改数据库的配置文件。
 
 3、运行项目
-
-### 前端程序
-
-1.   在项目目录下，输入命令`npm install`安装环境
-2.   输入命令`npm run dev`运行程序
 
 ## 项目截图
 
