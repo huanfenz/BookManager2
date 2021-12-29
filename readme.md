@@ -40,9 +40,9 @@
 
 ![image-20211227232606714](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202112272326816.png)
 
-## 演示地址
+![image-20211229231859119](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202112292319247.png)
 
-**滴滴滴，演示目前还是旧版用LayUI的版本。新版有空再上传服务器。**
+## 演示地址
 
 项目演示地址：http://47.97.104.230:8092/BookManager/
 
@@ -50,7 +50,7 @@
 
 读者账号`wangpeng`，密码`123456`
 
->   注意：请试用时尽量不要影响到原有的记录。
+**注意：请试用时尽量不要影响到原有的记录。!!!**
 
 ## 项目描述
 
