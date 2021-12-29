@@ -21,22 +21,20 @@ public class UserController {
     // 登录
     @RequestMapping(value = "/login")
     public Map<String, Object> login(@RequestBody User user) {
-        Map<String, Object> res = null;
-
         // 登录
         User userObj = userService.login(user);
         if(userObj == null) {   // 账号或密码错误
-            // 装载返回对象
-            res = MyResult.getResultMap(420, "账号或密码错误");
+            // 返回结果对象
+            return MyResult.getResultMap(420, "账号或密码错误");
         } else {    // 账号密码正确
             // 创建token
             String token = TokenProcessor.getInstance().makeToken();
             // 放到用户表里
             UserTableUtils.setUser(token, userObj);
-            // 装载返回对象
-            res = MyResult.getResultMap(200, "登录成功", new HashMap<String, String>(){{ put("token", token); }});
+            // 返回结果对象
+            return MyResult.getResultMap(200, "登录成功",
+                    new HashMap<String, String>(){{ put("token", token); }});
         }
-        return res;
     }
 
     // 查看用户信息
