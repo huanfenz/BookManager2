@@ -13,7 +13,7 @@ import java.util.Map;
 public class BookInfoServiceImpl implements BookInfoService {
 
     @Resource
-    BookInfoMapper bookInfoMapper;
+    private BookInfoMapper bookInfoMapper;
 
     @Override
     public Integer getCount() {

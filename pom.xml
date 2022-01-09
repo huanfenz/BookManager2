@@ -12,34 +12,33 @@
     <!--GAV坐标-->
     <groupId>com.wangpeng.bms</groupId>
     <artifactId>BookManagerApi</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.5</version>
 
     <properties>
         <java.version>1.8</java.version>
     </properties>
 
     <dependencies>
-        <!--spring web起步依赖（包括了json）-->
+        <!--spring web起步依赖（包含了jackson）-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-        <!--MyBatis整合SpringBoot的起步依赖-->
+        <!--SpringBoot整合MyBatis起步依赖-->
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>
             <artifactId>mybatis-spring-boot-starter</artifactId>
             <version>2.0.0</version>
         </dependency>
+        <!--SpringBoot整合Redis起步依赖-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-redis</artifactId>
+        </dependency>
         <!--MySQL的驱动依赖-->
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-        </dependency>
-        <!--阿里云OSS-->
-        <dependency>
-            <groupId>com.aliyun.oss</groupId>
-            <artifactId>aliyun-sdk-oss</artifactId>
-            <version>3.10.2</version>
         </dependency>
     </dependencies>
 

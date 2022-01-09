@@ -1,23 +1,51 @@
 package com.wangpeng.bms.service.impl;
 
+import com.mysql.cj.util.TimeUtil;
 import com.wangpeng.bms.mapper.UserMapper;
 import com.wangpeng.bms.model.User;
 import com.wangpeng.bms.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.StringRedisSerializer;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class UserServiceImpl implements UserService {
 
     @Resource
-    UserMapper userMapper;
+    private UserMapper userMapper;
+
+    @Resource
+    private RedisTemplate<Object, Object> redisTemplate;
 
     @Override
     public User login(User user) {
         return userMapper.selectByUsernameAndPasswordAndIsAdmin(user.getUsername(), user.getUserpassword(), user.getIsadmin());
+    }
+
+    @Override
+    public void saveUser(String token, User user) {
+        // 设置redisTemplate对象key的序列化方式
+        redisTemplate.setKeySerializer(new StringRedisSerializer());
+        // key是token，value是用户保存到redis中，超时时间1小时
+        redisTemplate.opsForValue().set(token, user, 1, TimeUnit.HOURS);
+    }
+
+    @Override
+    public User getUser(String token) {
+        // 根据token得到user
+        return (User) redisTemplate.opsForValue().get(token);
+    }
+
+    @Override
+    public void removeUser(String token) {
+        // 移除token
+        redisTemplate.delete(token);
     }
 
     @Override

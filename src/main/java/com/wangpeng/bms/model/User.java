@@ -1,6 +1,8 @@
 package com.wangpeng.bms.model;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     private Integer userid;
 
     private String username;

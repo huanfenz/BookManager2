@@ -15,7 +15,7 @@ import java.util.Map;
 public class BorrowServiceImpl implements BorrowService {
 
     @Resource
-    BorrowMapper borrowMapper;
+    private BorrowMapper borrowMapper;
 
     @Override
     public Integer getCount() {

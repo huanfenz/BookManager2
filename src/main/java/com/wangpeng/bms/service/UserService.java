@@ -9,6 +9,12 @@ public interface UserService {
 
     User login(User user);
 
+    void saveUser(String token, User user);
+
+    User getUser(String token);
+
+    void removeUser(String token);
+
     Integer register(String username, String password);
 
     void setPassword(Integer id, String password);

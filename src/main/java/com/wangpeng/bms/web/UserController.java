@@ -29,8 +29,8 @@ public class UserController {
         } else {    // 账号密码正确
             // 创建token
             String token = TokenProcessor.getInstance().makeToken();
-            // 放到用户表里
-            UserTableUtils.setUser(token, userObj);
+            // 保存到Redis
+            userService.saveUser(token, userObj);
             // 返回结果对象
             return MyResult.getResultMap(200, "登录成功",
                     new HashMap<String, String>(){{ put("token", token); }});
@@ -40,8 +40,8 @@ public class UserController {
     // 查看用户信息
     @RequestMapping(value = "/info")
     public Map<String, Object> info(String token) {
-        // 从用户表里取用户
-        User user = UserTableUtils.getUser(token);
+        // 从redis中取用户
+        User user = userService.getUser(token);
         if(user == null) {  // 获取失败
             return MyResult.getResultMap(420, "获取用户信息失败");
         } else {    // 获取成功
@@ -52,9 +52,8 @@ public class UserController {
     // 退出登录
     @RequestMapping(value = "/logout")
     public Map<String, Object> logout(String token) {
-        Map<String, Object> res = null;
-        // 从用户表里移除数据
-        UserTableUtils.removeUser(token);
+        // 从redis中移除用户
+        userService.removeUser(token);
         return MyResult.getResultMap(200, "退出登录成功" );
     }
 

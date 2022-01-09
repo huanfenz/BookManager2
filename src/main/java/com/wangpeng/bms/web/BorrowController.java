@@ -120,7 +120,7 @@ public class BorrowController {
                 throw new NullPointerException("图书" + bookid + "不存在");
             } else if(theBorrow == null) {   //结束记录不存在
                 throw new NullPointerException("借书记录" + bookid + "不存在");
-            } else if(theBook.getIsborrowed() == 0) {  // 已经还过书
+            } else if(theBorrow.getReturntime() != null) {  // 已经还过书
                 throw new NotEnoughException("图书" + bookid + "已经还过了");
             }
 
