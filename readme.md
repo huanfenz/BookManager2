@@ -28,7 +28,7 @@
 
 ### 后端程序
 
-1、数据库导入，新建数据库student_manager，将`book_manager.sql`文件导入并运行。
+1、数据库导入，新建数据库book_manager，将`book_manager.sql`文件导入并运行。
 
 2、打开项目，打开`src/main/resources/application.properties`，修改数据库和Redis的配置文件。
 
