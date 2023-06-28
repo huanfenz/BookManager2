@@ -36,11 +36,14 @@
 
 ## 项目截图
 
-![image-20211227232703076](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202112272327142.png)
+![bk1](https://github.com/huanfenz/BookManager2/assets/49386166/98084dde-9715-4ff4-95d5-31490d395675)
 
-![image-20211227232606714](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202112272326816.png)
 
-![image-20211229231859119](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202112292319247.png)
+![bk2](https://github.com/huanfenz/BookManager2/assets/49386166/eb9e8f50-8a86-42c6-9e29-961193c32610)
+
+
+![bk3](https://github.com/huanfenz/BookManager2/assets/49386166/f1c63765-0930-4eff-8e8a-129d9d51e888)
+
 
 ## 演示地址
 
@@ -56,11 +59,12 @@
 
 ### 数据库结构
 
-![Diagram 1](http://wangpeng-imgsubmit.oss-cn-hangzhou.aliyuncs.com/img/202111211945265.jpg)
+![bk4](https://github.com/huanfenz/BookManager2/assets/49386166/1df726b7-97a0-4b8d-a59e-8373ec92f721)
+
 
 ## 联系方式
 
-我的博客地址：[个人博客](http://huanfenz.top)，[CSDN博客](https://blog.csdn.net/qq_34245098?spm=1000.2115.3001.5343)。欢迎大家来踩。
+我的博客地址：[个人博客](http://huanfenz.top)。欢迎大家来踩。
 
 我的联系方式，欢迎联系我：
 
